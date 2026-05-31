@@ -1,0 +1,16 @@
+# 课前现场生成的断网后备（不提交）
+_backup_现场产物/
+**/_backup_现场产物/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+
+# IDE / OS
+.DS_Store
+Thumbs.db
+*.swp
