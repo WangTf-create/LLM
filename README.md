@@ -8,7 +8,7 @@
 ## 怎么用
 
 1. **讲义**：[讲义.ipynb](讲义.ipynb)——学员直接阅读的课程正文（VS Code Jupyter 打开）。标 🔴 的环节，现场从规格长出代码。
-2. **现场演示**：照 [code/演示脚本.md](code/演示脚本.md) 走，用 [spec](code/backend/spec/todo_api_spec.md) 现场长出后端 → 契约 → 前端。
+2. **现场演示**：照 [code/演示脚本.md](code/演示脚本.md) 走，用 [spec](code/spec/project_overview.md) 现场长出后端 → 契约 → 前端。
 3. **带走物**：[materials/](materials/) 里 6 份模板，课后带走复现。
 
 ## 结构
@@ -17,8 +17,12 @@
 讲义.ipynb                      学员阅读版（19 cell）
 code/
   演示脚本.md                   现场生成编排
+  spec/
+    project_overview.md         项目总览
+    workflow.md                 工作行为规范
+    auth_spec.md / team_spec.md / todo_api_spec.md / todo_ui_spec.md
+  test/                         所有后端 pytest 用例
   backend/
-    spec/todo_api_spec.md       SDD 驱动：人确认的规格
     requirements.txt            环境
     README.md
   frontend/README.md            从契约现场生成 UI 的要点

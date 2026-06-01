@@ -1,0 +1,9 @@
+{
+  "include": ["backend", "test"],
+  "exclude": ["**/__pycache__", "**/.pytest_cache"],
+  "extraPaths": ["backend"],
+  "pythonVersion": "3.12",
+  "typeCheckingMode": "basic",
+  "reportMissingImports": true,
+  "reportMissingTypeStubs": false
+}

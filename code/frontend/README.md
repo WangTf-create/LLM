@@ -1,24 +1,34 @@
-# 前端（课1 命题演示 · 第二幕）
+# 前端（OpenAPI + todo_ui_spec 驱动）
 
-> **页面不预写——现场从后端的 OpenAPI 契约生成。** 这里只说要点。
+> 页面由 [openapi.json](../backend/openapi.json) 与 [todo_ui_spec.md](../spec/todo_ui_spec.md) 生成。
 
-## 演什么
+## 启动
 
-后端跑起来后产出 `/openapi.json`。把这份契约喂给 AI 生成待办列表 + 新建表单页面，
-当众指出：UI 里的每个约束都**不是前端拍脑袋定的，是从契约继承的**——
+```bash
+cd code/backend
+pip install -r requirements.txt
+uvicorn app:app --reload
+```
 
-| UI 里的东西 | 来自契约的哪一项 |
+浏览器打开：
+
+- 前端：`http://127.0.0.1:8000/`（hash 路由：`#/login`、`#/teams`、`#/teams/1/todos`）
+- OpenAPI：`http://127.0.0.1:8000/openapi.json`
+- 交互文档：`http://127.0.0.1:8000/docs`
+
+## 文件
+
+| 文件 | 作用 |
 |---|---|
-| 只调 `/todos`、`/todos/{id}/done` | 契约的 `paths` |
-| 新建只发 `{ title }` | `TodoCreate` 只有 `title` |
-| 标题输入 `maxlength=100` | `title` 的 `maxLength` |
-| 标题非空才允许提交 | `title` 的 `minLength: 1` |
+| `index.html` | 单页应用入口 |
+| `app.js` | 路由、API 调用、页面逻辑 |
+| `style.css` | 样式 |
 
-## 题眼
+## 契约继承
 
-> **API 定义不是文档，是上一层的产出变成下一层的规格。** AI 没法编一个后端不存在的字段。
-
-进阶：从 OpenAPI 直接生成 typed client / mock，把约束落到代码级别。方法卡见
-[../../materials/03_API契约约束前端_方法卡.md](../../materials/03_API契约约束前端_方法卡.md)。
-
-> 课前用同一契约现场生成一版存进 `_backup_现场产物/`（git 忽略）当断网后备。
+| UI | 来源 |
+|---|---|
+| 端点路径 | openapi `paths` |
+| 请求体字段 | `components.schemas` |
+| 标题 `maxlength=100` | TodoCreate / TodoUpdate |
+| 团队名 `maxlength=50` | TeamCreate |

@@ -1,12 +1,6 @@
----
-description: SDD + TDD 工作模式 — 先 Spec 后实现，测试必积累
-globs: code/**
-alwaysApply: true
----
+# SDD + TDD 工作行为规范
 
-# SDD + TDD 工作模式
-
-完整规范见 [code/spec/workflow.md](../../code/spec/workflow.md)。
+> 待办事项项目（`code/`）的开发协作约定。任何功能开发前先读本文，再读具体功能 spec。
 
 ## 核心原则
 
@@ -19,8 +13,8 @@ alwaysApply: true
 Spec 探讨 → 人确认 → 写测试（红）→ 写实现（绿）→ 重构（保持绿）
 ```
 
-- Spec 位置：`code/spec/*.md`（见 [project_overview.md](../../code/spec/project_overview.md) 与各域 Spec）
-- 测试位置：`code/test/test_*.py`（所有后端测试统一放此目录）
+- Spec 位置：`code/spec/*.md`（功能规格）；后端 OpenAPI 契约（`openapi.json`）是前端 spec
+- 测试位置：`code/test/test_*.py`（所有后端测试统一放此目录，不在 `backend/` 下写测试）
 - 一个端点一个循环，不要一次写完整个服务
 - spec 未写清的规则，回到 spec 讨论，不边写边猜
 
@@ -37,7 +31,25 @@ Spec 探讨 → 人确认 → 写测试（红）→ 写实现（绿）→ 重构
 - 红 → 绿 → 重构；不许注释掉失败测试
 - 改了行为就更新/补测试
 - 测试失败时反馈具体断言 + 输入，不只说「有 bug」
-- **验证顺序**：`pyright backend test` → `pytest test/`（见 [workflow.md](../../code/spec/workflow.md)）
+
+## 后端验证顺序（退出标准）
+
+实现或重构后，**按顺序**执行，任一步失败即停止：
+
+```
+1. pyright backend test   # 静态类型检查（先于 pytest）
+2. pytest test/           # 行为测试
+```
+
+在 `code/` 目录下运行：
+
+```bash
+pip install -r backend/requirements.txt
+pyright backend test
+python -m pytest test/ -q
+```
+
+配置见 [pyrightconfig.json](../pyrightconfig.json)。
 
 ## 前端
 
